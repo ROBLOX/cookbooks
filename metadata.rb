@@ -7,3 +7,5 @@ version          "0.0.3"
 %w{ ubuntu debian rhel centos scientific amazon }.each do |os|
   supports os
 end
+
+name             'timezone'
