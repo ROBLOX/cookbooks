@@ -9,10 +9,13 @@
 
 require 'chef/util/file_edit'
 
+# Make sure it's installed. It would be a pretty broken system
+# that didn't have it.
+package 'tzdata' do
+  action :install
+end
+
 if ['debian','ubuntu'].member? node[:platform]
-  # Make sure it's installed. It would be a pretty broken system
-  # that didn't have it.
-  package "tzdata"
 
   template "/etc/timezone" do
     source "timezone.conf.erb"
@@ -27,8 +30,8 @@ if ['debian','ubuntu'].member? node[:platform]
     code "/usr/sbin/dpkg-reconfigure -f noninteractive tzdata"
     action :nothing
   end
+
 elsif ['rhel','centos','scientific','amazon'].member? node[:platform]
-  package "tzdata"
 
   link "/etc/localtime" do
     to "/usr/share/zoneinfo/#{node[:tz]}"
