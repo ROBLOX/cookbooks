@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-        "recipe[timezone::default]"
+        "recipe[timezone]"
     ]
   end
 end
